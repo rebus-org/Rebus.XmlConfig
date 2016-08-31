@@ -1,4 +1,4 @@
-# Rebus.TODO
+# Rebus.XmlConfig
 
 Provides an endpoint mappings XML configuration helper for [Rebus](https://github.com/rebus-org/Rebus).
 
