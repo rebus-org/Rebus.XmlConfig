@@ -2,12 +2,12 @@
 using System.Configuration;
 using System.Linq;
 using System.Reflection;
-using Rebus.Config;
 using Rebus.Logging;
 using Rebus.Routing;
 using Rebus.Routing.TypeBased;
+using Rebus.XmlConfig;
 
-namespace Rebus.XmlConfig
+namespace Rebus.Config
 {
     /// <summary>
     /// Configuration extensions that allow for picking up Rebus configuration from the current app.config/web.config
