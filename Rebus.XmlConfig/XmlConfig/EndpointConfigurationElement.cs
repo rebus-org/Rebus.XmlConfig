@@ -1,34 +1,27 @@
 ﻿using System.Collections.Generic;
 using System.Configuration;
 
-namespace Rebus.XmlConfig
+namespace Rebus.XmlConfig;
+
+/// <summary>
+/// Contains the configured endpoint mappings
+/// </summary>
+public class EndpointConfigurationElement : ConfigurationElementCollection, IEnumerable<EndpointMapping>
 {
+    /// <inheritdoc />
+    protected override ConfigurationElement CreateNewElement() => new EndpointMapping();
+
+    /// <inheritdoc />
+    protected override object GetElementKey(ConfigurationElement element) => ((EndpointMapping)element).Messages;
+
     /// <summary>
-    /// Contains the configured endpoint mappings
+    /// Performs some redundant action because that's just how .NET works
     /// </summary>
-    public class EndpointConfigurationElement : ConfigurationElementCollection, IEnumerable<EndpointMapping>
+    public new IEnumerator<EndpointMapping> GetEnumerator()
     {
-        /// <inheritdoc />
-        protected override ConfigurationElement CreateNewElement()
+        for (var index = 0; index < Count; index++)
         {
-            return new EndpointMapping();
-        }
-
-        /// <inheritdoc />
-        protected override object GetElementKey(ConfigurationElement element)
-        {
-            return ((EndpointMapping)element).Messages;
-        }
-
-        /// <summary>
-        /// Performs some redundant action because that's just how .NET works
-        /// </summary>
-        public new IEnumerator<EndpointMapping> GetEnumerator()
-        {
-            for (var index = 0; index < Count; index++)
-            {
-                yield return (EndpointMapping)BaseGet(index);
-            }
+            yield return (EndpointMapping)BaseGet(index);
         }
     }
 }

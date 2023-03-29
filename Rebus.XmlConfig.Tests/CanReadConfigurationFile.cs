@@ -6,41 +6,40 @@ using Rebus.Tests.Contracts;
 using Rebus.Transport.InMem;
 using Swindler;
 
-namespace Rebus.XmlConfig.Tests
-{
-    [TestFixture]
-    public class CanReadConfigurationFile : FixtureBase
-    {
-        [Test]
-        public void ItWorks()
-        {
-            using (AppConfig.Use("Examples/App-01.config"))
-            {
-                using (var activator = new BuiltinHandlerActivator())
-                {
-                    Configure.With(activator)
-                        .Transport(t => t.UseInMemoryTransport(new InMemNetwork(), "bimse"))
-                        .Routing(r => r.TypeBasedRoutingFromAppConfig())
-                        .Start();
-                }
-            }
-        }
+namespace Rebus.XmlConfig.Tests;
 
-        [Test]
-        public void ItWorksWithComplementaryConfigAsWell()
+[TestFixture]
+public class CanReadConfigurationFile : FixtureBase
+{
+    [Test]
+    public void ItWorks()
+    {
+        using (AppConfig.Use("Examples/App-01.config"))
         {
-            using (AppConfig.Use("Examples/App-01.config"))
+            using (var activator = new BuiltinHandlerActivator())
             {
-                using (var activator = new BuiltinHandlerActivator())
-                {
-                    Configure.With(activator)
-                        .Transport(t => t.UseInMemoryTransport(new InMemNetwork(), "bimse"))
-                        .Routing(r => r.TypeBased().AddEndpointMappingsFromAppConfig())
-                        .Start();
-                }
+                Configure.With(activator)
+                    .Transport(t => t.UseInMemoryTransport(new InMemNetwork(), "bimse"))
+                    .Routing(r => r.TypeBasedRoutingFromAppConfig())
+                    .Start();
             }
         }
     }
 
-    public class SomeExistingType { }
+    [Test]
+    public void ItWorksWithComplementaryConfigAsWell()
+    {
+        using (AppConfig.Use("Examples/App-01.config"))
+        {
+            using (var activator = new BuiltinHandlerActivator())
+            {
+                Configure.With(activator)
+                    .Transport(t => t.UseInMemoryTransport(new InMemNetwork(), "bimse"))
+                    .Routing(r => r.TypeBased().AddEndpointMappingsFromAppConfig())
+                    .Start();
+            }
+        }
+    }
 }
+
+public class SomeExistingType { }
