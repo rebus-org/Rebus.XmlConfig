@@ -16,5 +16,5 @@
 * Update to Rebus 4
 * Port to new project structure
 
-## 5.0.0-alpha02
+## 5.0.0
 * Update to Rebus 8
