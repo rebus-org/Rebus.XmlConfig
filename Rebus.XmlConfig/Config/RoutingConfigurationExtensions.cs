@@ -6,6 +6,7 @@ using Rebus.Logging;
 using Rebus.Routing;
 using Rebus.Routing.TypeBased;
 using Rebus.XmlConfig;
+// ReSharper disable UnusedMember.Global
 
 namespace Rebus.Config;
 
@@ -102,16 +103,12 @@ Please note that explicitly mapped types will always take precedence over assemb
                 "Could not find 'rebus' configuration section in the current app.config/web.config");
         }
 
-        if (!(section is RebusConfigurationSection))
+        if (section is RebusConfigurationSection rebusRoutingConfigurationSection)
         {
-            throw new ConfigurationErrorsException(
-                string.Format("The configuration section 'rebus' is not a {0} as expected, it's a {1}",
-                    typeof (RebusConfigurationSection),
-                    section.GetType()));
+            return rebusRoutingConfigurationSection;
         }
-
-        var rebusRoutingConfigurationSection = (RebusConfigurationSection) section;
-        return rebusRoutingConfigurationSection;
+        
+        throw new ConfigurationErrorsException($"The configuration section 'rebus' is not a {typeof(RebusConfigurationSection)} as expected, it's a {section.GetType()}");
     }
 
     static void SetUpEndpointMappings(EndpointConfigurationElement mappings, Action<Type, string> mappingFunction)
@@ -137,8 +134,7 @@ Please note that explicitly mapped types will always take precedence over assemb
 
                 if (messageType == null)
                 {
-                    throw new ConfigurationErrorsException(
-                        string.Format(@"Could not find the message type {0}. If you choose to map a specific message type, please ensure that the type is available for Rebus to load. This requires that the assembly can be found in Rebus' current runtime directory, that the type is available, and that any (of the optional) version and key requirements are matched", typeName));
+                    throw new ConfigurationErrorsException($"Could not find the message type {typeName}. If you choose to map a specific message type, please ensure that the type is available for Rebus to load. This requires that the assembly can be found in Rebus' current runtime directory, that the type is available, and that any (of the optional) version and key requirements are matched");
                 }
 
                 mappingFunction(messageType, element.Endpoint);
@@ -154,15 +150,13 @@ Please note that explicitly mapped types will always take precedence over assemb
         }
         catch (Exception e)
         {
-            throw new ConfigurationErrorsException(string.Format(
-                @"
-Something went wrong when trying to load message types from assembly {0}
-{1}
+            throw new ConfigurationErrorsException($@"
+Something went wrong when trying to load message types from assembly {assemblyName}
+{e}
 For this to work, Rebus needs access to an assembly with one of the following filenames:
-    {0}.dll
-    {0}.exe
-",
-                assemblyName, e));
+    {assemblyName}.dll
+    {assemblyName}.exe
+");
         }
     }
 }

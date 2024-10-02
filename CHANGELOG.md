@@ -18,3 +18,6 @@
 
 ## 5.0.0
 * Update to Rebus 8
+
+## 5.1.0
+* Target .NET 4.6.2 and .NET Standard 2.0 (which then depends on the System.Configuration.ConfigurationManager NuGet)

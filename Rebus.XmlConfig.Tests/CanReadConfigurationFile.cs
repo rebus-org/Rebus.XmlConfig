@@ -5,6 +5,7 @@ using Rebus.Routing.TypeBased;
 using Rebus.Tests.Contracts;
 using Rebus.Transport.InMem;
 using Swindler;
+// ReSharper disable UnusedMember.Global
 
 namespace Rebus.XmlConfig.Tests;
 
@@ -42,4 +43,4 @@ public class CanReadConfigurationFile : FixtureBase
     }
 }
 
-public class SomeExistingType { }
+public class SomeExistingType;
