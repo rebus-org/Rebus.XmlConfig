@@ -10,7 +10,7 @@
 		<PackageDescription>System.Configuration.ConfigurationManager-based endpoint mapping configuration helper for Rebus</PackageDescription>
 		<Copyright>Copyright Rebus FM ApS 2012</Copyright>
 		<PackageTags>rebus events</PackageTags>
-		<RepositoryUrl>https://github.com/rebus-org/Rebus</RepositoryUrl>
+		<RepositoryUrl>https://github.com/rebus-org/Rebus.XmlConfig</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageIcon>little_rebusbus2_copy-500x500.png</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
